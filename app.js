@@ -1,4 +1,4 @@
-// Initial list of topics
+// Initial list of topics and global variables
 var topics = [
     "Hamsters",
     "Sugar Gliders",
@@ -8,7 +8,7 @@ var topics = [
     "Rabbits",
 ];
 
-// removes all existing buttons and then makes for each element in topics array
+// removes all existing buttons and then makes buttons for each element in topics array
 function displayButtons() {
     $("#buttons").empty();
     for (var i = 0; i < topics.length; i++) {
@@ -16,20 +16,19 @@ function displayButtons() {
         var newButton = $("<button>");
         newButton.attr("class", "topic-button");
 
-        // add topic name to text of button and data attribute
+        //add topic name to text of button and data attribute
         newButton.text(topics[i]);
         newButton.attr("data-topic", topics[i]);
         $("#buttons").append(newButton);
     }
 }
 
-// on page load..
+//on page load display initial buttons
 $(document).ready(function() {
-    //display initial buttons
     displayButtons();
 
     //click listener for topic buttons
-    $("#buttons").on("click", ".topic-btuuon", function() {
+    $("#buttons").on("click", ".topic-button", function() {
         var queryUrl = "https://api.giphy.com/v1/gifs/search?api_key=CY6UZtoLGsDb7sYJ2f13NvtSGnimwjNS&q="
         +$(this).attr("data-topic") +"&limit=10&offset=0&rating=PG-13&lang=en"
         $.ajax({
@@ -37,7 +36,7 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response) {
             var gifs = response.data;
-            var gifSection =$("<div>");
+            var gifSection = $("<div>");
 
             gifSection.attr("class", "gif-section");
             for (var i = 0; i < gifs.length; i++) {
@@ -45,8 +44,8 @@ $(document).ready(function() {
                 var gifDiv = $("<div>");
                 var gifImg = $("<img>");
 
-                // give data to img element with still and animated URLS, plus which state it is in
-                gigImg.attr("data-still-url", gifs[i].images.fixed_height_still.url);
+                // give data to img element with still and animated URLs
+                gifImg.attr("data-still-url", gifs[i].images.fixed_height_still.url);
                 gifImg.attr("data-animate-url", gifs[i].images.fixed_height.url);
                 gifImg.attr("data-state", "still");
 
@@ -56,30 +55,28 @@ $(document).ready(function() {
 
                 // add img to div
                 gifDiv.append(gifImg);
-                gifDiv.attr("class", "gid-div");
+                gifDiv.attr("class", "gif-div");
 
                 // add new elements for holding rating and url
                 var gifRating = $("<p>");
                 var gifLink = $("<a>");
                 gifRating.text("Rating: " +gifs[i].rating);
-                gifRating.attr("class", "gif-rating");
-                gifLink.text("Giphy Link");
                 gifLink.attr("href", gifs[i].url);
                 gifLink.attr("class", "gif-link");
                 gifDiv.append(gifRating);
                 gifDiv.append(gifLink);
 
-                //add the whole section to the page
+                // add the gif to the page
                 $(gifSection).append(gifDiv);
             }
 
             $("#gifs").prepend(gifSection);
         });
     });
-    
+
     // click listener for gifs
     $("#gifs").on("click", ".gif-img", function() {
-        if ($(this).attr("data-state") == "still") {
+        if ($(this).attr("data-state") === "still") {
             $(this).attr("src", $(this).attr("data-animate-url"));
             $(this).attr("data-state", "animate");
         } else {
@@ -94,5 +91,6 @@ $(document).ready(function() {
         var newTopic = $("#add-button-input").val().trim();
         topics.push(newTopic);
         displayButtons();
+        $("#add-button-input").val("");
     });
 });

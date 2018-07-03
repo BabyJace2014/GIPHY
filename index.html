@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-
-<html land="en-us">
+<html lang="en-us">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE-edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>GIPHY API</title>
-        
-        <link rel="stylesheet" href="reset.css">
-        <link rel="stylesheet" href="stytle.css">
-
-        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-        <script src="app.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GIPHY API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
     </head>
 <body>
     <div class="container">
@@ -20,10 +15,13 @@
         <section id="add-button">
             <form id="add-button-form" action="">
                 <input id="add-button-input" name="add-button-input" type="text">
-                <input id="add-button-submit" name="add-button-submit" value="Add Button">
+                <input id="add-button-submit" type="submit" value="Add Button">
             </form>
         </section>
         <section id="gifs"></section>
-    </div> 
-</body>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</body>    
 </html>
